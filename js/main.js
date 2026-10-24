@@ -62,7 +62,7 @@
 
   $('#artGrid').innerHTML = D.art.map(a => `
     <a class="art-item" href="${a.href}" target="_blank" rel="noopener" data-cursor="View">${media(a.img, a.t, a.h)}<div class="cap"><span>${esc(a.t)}</span><i>↗</i></div></a>`).join('');
-  $('#photoGrid').innerHTML = D.photos.map((k, i) => `<button class="shot" data-img="${D.photosBase + k}=w1920" data-cursor="View" aria-label="Open photograph ${i + 1}"><div class="ph" style="--h:${(i * 31) % 60 + 10}"><span>FRAME ${String(i + 1).padStart(2, '0')}</span></div><img referrerpolicy="no-referrer" src="${D.photosBase + k}=w800" alt="Photograph ${i + 1} by Pranto" loading="lazy"></button>`).join('');
+  $('#photoGrid').innerHTML = D.photos.map((k, i) => `<button class="shot" data-img="${/^(assets\/|data:|https?:)/.test(k) ? k : D.photosBase + k + '=w1920'}" data-cursor="View" aria-label="Open photograph ${i + 1}"><div class="ph" style="--h:${(i * 31) % 60 + 10}"><span>FRAME ${String(i + 1).padStart(2, '0')}</span></div><img referrerpolicy="no-referrer" src="${/^(assets\/|data:|https?:)/.test(k) ? k : D.photosBase + k + '=w800'}" alt="Photograph ${i + 1} by Pranto" loading="lazy"></button>`).join('');
 
   // swap remote images for local copies when tools/localize_images.py has been run
   const LOC = window.PV_LOCAL || {};

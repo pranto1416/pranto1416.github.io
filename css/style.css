@@ -808,3 +808,9 @@ html[data-mode="studio"] .only-academic{display:none}
 /* quieter fallback while an image is loading or missing */
 .ph span{font-size:clamp(14px,1.6vw,22px)!important;opacity:.55;letter-spacing:.06em}
 .stage-frame .ph span{font-size:clamp(14px,1.4vw,20px)!important}
+/* cleaner custom cursor: coral ring, no blend */
+.cursor{mix-blend-mode:normal;background:transparent;border:2px solid var(--sodium);width:16px;height:16px;margin:-8px 0 0 -8px;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.cursor.link{width:40px;height:40px;margin:-20px 0 0 -20px;background:rgba(255,90,61,.12)}
+.cursor.big{border-color:#000;background:var(--sodium)}
+.ev-media img{object-position:center 30%}
+button.ev-media{display:block;cursor:zoom-in}
