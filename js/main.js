@@ -15,14 +15,14 @@
     film: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M6.5 6v4l3.5-2z" fill="currentColor"/></svg>'
   };
   const media = (img, label, h, yt) =>
-    `<div class="media"><div class="ph" style="--h:${h}"><span>${esc(label)}</span></div>${img ? `<img src="${img}" alt="" loading="lazy"${yt ? ' class="yt"' : ''}>` : ''}</div>`;
+    `<div class="media"><div class="ph" style="--h:${h}"><span>${esc(label)}</span></div>${img ? `<img referrerpolicy="no-referrer" src="${img}" alt="" loading="lazy"${yt ? ' class="yt"' : ''}>` : ''}</div>`;
 
   /* ================= build content ================= */
   $('#skills').innerHTML = (D.skills.map(s => `<span>${esc(s)}</span>`).join('')).repeat(2);
 
   $('#reelTrack').innerHTML = D.reels.map((r, i) => `
     <button class="reel" data-video="${r.vid}" data-cursor="Play" aria-label="Play ${esc(r.t)}">
-      <div class="media"><div class="ph" style="--h:${(i * 47) % 360}"><span>${esc(r.t)}</span></div><img src="https://i.ytimg.com/vi/${r.vid}/hqdefault.jpg" alt="" loading="lazy" class="yt"><span class="play" aria-hidden="true"></span></div>
+      <div class="media"><div class="ph" style="--h:${(i * 47) % 360}"><span>${esc(r.t)}</span></div><img referrerpolicy="no-referrer" src="https://i.ytimg.com/vi/${r.vid}/hqdefault.jpg" alt="" loading="lazy" class="yt"><span class="play" aria-hidden="true"></span></div>
       <div class="reel-cap"><span class="n mono">${String(i + 1).padStart(2, '0')}</span><b>${esc(r.t)}</b><i class="mono">${esc(r.sub)} · ${esc(r.eng)}</i></div>
     </button>`).join('');
 
@@ -62,7 +62,7 @@
 
   $('#artGrid').innerHTML = D.art.map(a => `
     <a class="art-item" href="${a.href}" target="_blank" rel="noopener" data-cursor="View">${media(a.img, a.t, a.h)}<div class="cap"><span>${esc(a.t)}</span><i>↗</i></div></a>`).join('');
-  $('#photoGrid').innerHTML = D.photos.map((k, i) => `<button class="shot" data-img="${D.photosBase + k}=w1920" data-cursor="View" aria-label="Open photograph ${i + 1}"><div class="ph" style="--h:${(i * 31) % 60 + 10}"><span>FRAME ${String(i + 1).padStart(2, '0')}</span></div><img src="${D.photosBase + k}=w800" alt="Photograph ${i + 1} by Pranto" loading="lazy"></button>`).join('');
+  $('#photoGrid').innerHTML = D.photos.map((k, i) => `<button class="shot" data-img="${D.photosBase + k}=w1920" data-cursor="View" aria-label="Open photograph ${i + 1}"><div class="ph" style="--h:${(i * 31) % 60 + 10}"><span>FRAME ${String(i + 1).padStart(2, '0')}</span></div><img referrerpolicy="no-referrer" src="${D.photosBase + k}=w800" alt="Photograph ${i + 1} by Pranto" loading="lazy"></button>`).join('');
 
   // swap remote images for local copies when tools/localize_images.py has been run
   const LOC = window.PV_LOCAL || {};
@@ -147,7 +147,7 @@
       return;
     }
     const im = e.target.closest('[data-img]');
-    if (im && !im.querySelector('img.missing')) { e.preventDefault(); openModal(`<img src="${im.dataset.img}" alt="Photograph by Pranto">`); }
+    if (im && !im.querySelector('img.missing')) { e.preventDefault(); openModal(`<img referrerpolicy="no-referrer" src="${im.dataset.img}" alt="Photograph by Pranto">`); }
   });
   mclose.addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
