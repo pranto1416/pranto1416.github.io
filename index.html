@@ -29,6 +29,7 @@
 <div class="fallback-sky" aria-hidden="true"></div>
 <div class="shade" id="shade" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
+<button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false" aria-label="Turn sound on"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-label mono">Sound</span></button>
 <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label" id="cursorLabel"></span></div>
 
 <!-- ===== NAV ===== -->
@@ -39,13 +40,12 @@
   </a>
   <nav class="nav-links" aria-label="Primary">
     <a href="#origin" data-scrollto>About</a>
-    <a href="#research" data-scrollto>Research</a>
+    <a href="#log" data-scrollto>Experience</a>
     <a href="#work" data-scrollto>Work</a>
+    <a href="#research" data-scrollto>Research</a>
     <a href="#worlds" data-scrollto>Artistry</a>
     <a href="#leadership" data-scrollto>Leadership</a>
-    <a href="#playground" data-scrollto>Playground</a>
   </nav>
-  <div class="mode mono" role="group" aria-label="Portfolio view"><button data-mode="academic" aria-pressed="true">Academic</button><button data-mode="studio" aria-pressed="false">Studio</button></div>
   <div class="tc mono" aria-hidden="true"><i class="rec"></i><span id="timecode">00:00:00:00</span></div>
   <a href="#contact" class="btn btn-line nav-cta" data-scrollto>Contact</a>
   <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
@@ -54,15 +54,14 @@
 <div class="menu" id="menu" hidden>
   <nav aria-label="Menu">
     <a href="#origin" data-scrollto>About</a>
-    <a href="#research" data-scrollto>Research</a>
+    <a href="#log" data-scrollto>Experience</a>
     <a href="#work" data-scrollto>Selected Work</a>
+    <a href="#research" data-scrollto>Research</a>
     <a href="#worlds" data-scrollto>Artistry</a>
     <a href="#leadership" data-scrollto>Leadership</a>
     <a href="#playground" data-scrollto>Playground</a>
-    <a href="#log" data-scrollto>Experience</a>
     <a href="#toolkit" data-scrollto>Toolkit</a>
     <a href="#contact" data-scrollto>Contact</a>
-    <div class="mode mono menu-mode" role="group" aria-label="Portfolio view"><button data-mode="academic" aria-pressed="true">Academic view</button><button data-mode="studio" aria-pressed="false">Studio view</button></div>
   </nav>
 </div>
 
@@ -78,7 +77,7 @@
     <h1 class="hero-title" aria-label="Pranto"><span class="ht" data-chars>PRANTO</span></h1>
     <div class="hero-meta">
       <p class="hero-name">Mutakabbirul Islam</p>
-      <p class="hero-roles mono"><span class="only-academic">Game Developer &amp; XR Researcher <i>/</i> Co-Founder, patiHash Creative</span><span class="only-studio">Game Designer <i>/</i> Technical Artist <i>/</i> Co-Founder, patiHash Creative</span></p>
+      <p class="hero-roles mono">Game Developer &amp; XR Researcher <i>/</i> Technical Artist <i>/</i> Co-Founder, patiHash Creative</p>
     </div>
     <p class="hero-line">Game designer and worldbuilder. I write it, light it, and lead the team that ships it.</p>
     <div hidden>
@@ -249,7 +248,7 @@
       </article>
       <article class="case flip">
         <div class="case-media">
-          <button class="media case-hero" data-video="_4FPlhUJdsA" data-cursor="Play" aria-label="Play Forza Horizon × Ghibli trailer"><div class="ph" style="--h:40"><span>Forza Horizon × Ghibli trailer</span></div><img referrerpolicy="no-referrer" src="https://i.ytimg.com/vi/_4FPlhUJdsA/hqdefault.jpg" alt="" loading="lazy" class="yt"><span class="play" aria-hidden="true"></span></button>
+          <button class="media case-hero" data-video="_4FPlhUJdsA" data-cursor="Play" aria-label="Play Forza Horizon × Ghibli trailer"><div class="ph" style="--h:40"><span>Forza Horizon × Ghibli trailer</span></div><img referrerpolicy="no-referrer" src="https://i.ytimg.com/vi/_4FPlhUJdsA/maxresdefault.jpg" onerror="if(!this.dataset.f){this.dataset.f=1;this.classList.remove('missing');this.src='https://i.ytimg.com/vi/_4FPlhUJdsA/hqdefault.jpg'}" alt="Forza Horizon × Ghibli trailer still" class="yt yt-max"><span class="play" aria-hidden="true"></span></button>
         </div>
         <div class="case-body">
           <p class="mono case-n">Case 02 · Solo personal project · Unity 6</p>
@@ -559,5 +558,6 @@
 <script src="js/local-images.js"></script>
 <script src="js/universe.js"></script>
 <script src="js/main.js"></script>
+<script src="js/ambience.js"></script>
 </body>
 </html>

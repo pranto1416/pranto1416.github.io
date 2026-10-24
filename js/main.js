@@ -78,26 +78,11 @@
       : `<div class="vfx">${media(v.img, v.t, (i * 53) % 360)}<span class="vfx-cap"><b>${esc(v.t)}</b><i class="mono">${esc(v.sub || '')}</i></span></div>`).join('');
   }
 
-  /* ================= view mode: academic / studio ================= */
-  const ORDER = {
-    academic: ['hero', 'origin', 'research', 'work', 'worlds', 'gameart', 'leadership', 'playground', 'log', 'toolkit', 'contact'],
-    studio: ['hero', 'origin', 'work', 'worlds', 'gameart', 'playground', 'leadership', 'log', 'toolkit', 'research', 'contact']
-  };
-  let mode = 'academic';
-  try { mode = localStorage.getItem('pv-mode') || 'academic'; } catch (e) { }
-  if (!ORDER[mode]) mode = 'academic';
+  /* ================= section order: experience first ================= */
+  const ORDER = ['hero', 'origin', 'log', 'work', 'research', 'worlds', 'gameart', 'leadership', 'playground', 'toolkit', 'contact'];
   const mainEl = $('main');
-  ORDER[mode].forEach(id => { const el = document.getElementById(id); if (el) mainEl.appendChild(el); });
-  document.documentElement.dataset.mode = mode;
-  $$('[data-mode]').forEach(b => {
-    b.setAttribute('aria-pressed', String(b.dataset.mode === mode));
-    b.addEventListener('click', () => {
-      if (b.dataset.mode === mode) return;
-      try { localStorage.setItem('pv-mode', b.dataset.mode); } catch (e) { }
-      try { history.scrollRestoration = 'manual'; } catch (e) { }
-      scrollTo(0, 0); location.reload();
-    });
-  });
+  ORDER.forEach(id => { const el = document.getElementById(id); if (el) mainEl.appendChild(el); });
+  try { localStorage.removeItem('pv-mode'); } catch (e) { }
 
   /* ================= AFTERIMAGE live demo ================= */
   const aiBtn = $('#aiLaunch');
