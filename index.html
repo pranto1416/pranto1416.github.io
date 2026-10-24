@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prantoverse</title>
+<meta name="description" content="Mutakabbirul Islam Pranto: game designer, XR researcher and co-founder of patiHash Creative. Welcome to the Prantoverse.">
+<meta name="theme-color" content="#03161b">
+<meta property="og:title" content="Pranto · Prantoverse">
+<meta property="og:description" content="Game designer & XR researcher. Co-Founder, patiHash Creative.">
+<meta property="og:image" content="assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Hind+Siliguri:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.addEventListener("error",function(e){var t=e.target;if(t&&t.tagName==="IMG")t.classList.add("missing")},true);</script>
+</head>
+<body>
+
+<!-- ===== LEADER (loader) ===== -->
+<div class="leader" id="leader" aria-hidden="true">
+  <img class="leader-logo" src="assets/logo-256.png" alt="" width="170" height="170"><span id="leaderNum" hidden>3</span>
+  <p class="mono">A PRANTOVERSE PRODUCTION</p>
+</div>
+
+<canvas id="universe" aria-hidden="true"></canvas>
+<div class="fallback-sky" aria-hidden="true"></div>
+<div class="shade" id="shade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label" id="cursorLabel"></span></div>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <a href="#top" class="brand" data-scrollto aria-label="Prantoverse, back to top">
+    <img src="assets/logo-256.png" alt="" width="40" height="40">
+    <span>PRANTOVERSE</span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#origin" data-scrollto>About</a>
+    <a href="#research" data-scrollto>Research</a>
+    <a href="#work" data-scrollto>Work</a>
+    <a href="#worlds" data-scrollto>Artistry</a>
+    <a href="#leadership" data-scrollto>Leadership</a>
+    <a href="#playground" data-scrollto>Playground</a>
+  </nav>
+  <div class="mode mono" role="group" aria-label="Portfolio view"><button data-mode="academic" aria-pressed="true">Academic</button><button data-mode="studio" aria-pressed="false">Studio</button></div>
+  <div class="tc mono" aria-hidden="true"><i class="rec"></i><span id="timecode">00:00:00:00</span></div>
+  <a href="#contact" class="btn btn-line nav-cta" data-scrollto>Contact</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Menu">
+    <a href="#origin" data-scrollto>About</a>
+    <a href="#research" data-scrollto>Research</a>
+    <a href="#work" data-scrollto>Selected Work</a>
+    <a href="#worlds" data-scrollto>Artistry</a>
+    <a href="#leadership" data-scrollto>Leadership</a>
+    <a href="#playground" data-scrollto>Playground</a>
+    <a href="#log" data-scrollto>Experience</a>
+    <a href="#toolkit" data-scrollto>Toolkit</a>
+    <a href="#contact" data-scrollto>Contact</a>
+    <div class="mode mono menu-mode" role="group" aria-label="Portfolio view"><button data-mode="academic" aria-pressed="true">Academic view</button><button data-mode="studio" aria-pressed="false">Studio view</button></div>
+  </nav>
+</div>
+
+<main id="top">
+
+<!-- ===== HERO: through the kaleidoscope ===== -->
+<section class="hero" id="hero">
+  <div class="lb lb-top" aria-hidden="true"><p class="mono">SCENE 01 · THE KALEIDOSCOPE</p></div>
+  <div class="lb lb-bot" aria-hidden="true"><p class="mono">23.8103° N · 90.4125° E · DHAKA <b id="clock">--:--</b></p></div>
+
+  <div class="hero-inner">
+    <p class="hero-kicker mono">A PRANTOVERSE PRODUCTION</p>
+    <h1 class="hero-title" aria-label="Pranto"><span class="ht" data-chars>PRANTO</span></h1>
+    <div class="hero-meta">
+      <p class="hero-name">Mutakabbirul Islam</p>
+      <p class="hero-roles mono"><span class="only-academic">Game Developer &amp; XR Researcher <i>/</i> Co-Founder, patiHash Creative</span><span class="only-studio">Game Designer <i>/</i> Technical Artist <i>/</i> Co-Founder, patiHash Creative</span></p>
+    </div>
+    <p class="hero-line">Game designer and worldbuilder. I write it, light it, and lead the team that ships it.</p>
+    <div hidden>
+    </div>
+  </div>
+  <p class="hero-welcome" aria-hidden="true">Welcome to<br>my universe.</p>
+  <div class="scroll-cue mono" aria-hidden="true"><span>Scroll to fly</span><i></i></div>
+</section>
+
+<!-- ===== I. ORIGIN ===== -->
+<section class="sec origin" id="origin">
+  <div class="wrap">
+    <p class="chapter mono c"><b></b> About</p>
+    <p class="manifesto" data-words>I design worlds where emotion lingers longer than logic, where gameplay feels like memory, and art becomes story.</p>
+
+    <div class="origin-grid">
+      <figure class="tcard" id="tcard">
+        <div class="tcard-inner">
+          <div class="tcard-top"><b>PRANTO</b><span class="mono">EST. 2021</span></div>
+          <div class="tcard-art"><img src="assets/pranto.jpg" alt="Illustrated portrait of Mutakabbirul Islam Pranto" width="900" height="900"></div>
+          <p class="tcard-type mono">Class · Worldbuilder / Creative Director</p>
+          <ul class="tcard-abilities">
+            <li><b>Level Design</b><span>From block-out to final light pass</span></li>
+            <li><b>Lighting &amp; Post</b><span>Mood, color and atmosphere</span></li>
+            <li><b>Storytelling</b><span>Narrative, scripts and voice direction</span></li>
+            <li><b>Team Leadership</b><span>Teams across four countries</span></li>
+          </ul>
+          <p class="tcard-flavor">"Games are poetry disguised as play."</p>
+          <div class="tcard-foot mono"><span>Dhaka, Bangladesh</span><span>No. 001</span></div>
+          <i class="tcard-holo" aria-hidden="true"></i>
+        </div>
+      </figure>
+      <div class="origin-copy">
+        <p class="lead">Game designer, level designer and technical artist turned studio founder.</p>
+        <p>I started out breaking games as a QA intern at <a href="https://wishescometrue.batterylowinteractive.com/" target="_blank" rel="noopener">Battery Low Interactive</a>, learned to light and build them at <a href="https://www.sleepypenguinstudios.com/" target="_blank" rel="noopener">Sleepy Penguin Studios</a>, taught university students to do the same, and co-founded <a href="https://www.patihash.com/" target="_blank" rel="noopener">patiHash Creative</a>, an interactive technology studio with a team across Bangladesh, Sweden, Australia and Japan. Today I'm also researching VR for cognitive rehabilitation with Kennesaw State University.</p>
+        <p>I work where story, light and systems meet. I write the narrative, block out the level, tune the post-processing, and steer the team that ships it.</p>
+        <dl class="stats">
+          <div><dt class="mono">In games since</dt><dd data-count="2021">2021</dd></div>
+          <div><dt class="mono">Community members led</dt><dd data-count="300">300</dd></div>
+          <div><dt class="mono">Students reached, Change Agent 2</dt><dd><span data-count="7000">7,000</span>+</dd></div>
+          <div><dt class="mono">Projects shipped &amp; prototyped</dt><dd><span data-count="30">30</span>+</dd></div>
+        </dl>
+        <div class="about-ctas">
+          <a class="cv-big" href="https://drive.google.com/file/d/1e1Hft1m4cRprtTYnw18fV-f9aW-4jpDA/view?usp=drive_link" target="_blank" rel="noopener" data-cursor="Open">
+            <span class="cv-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
+            <span class="cv-txt"><b>View my CV</b><i>Research · Publications · Experience</i></span>
+            <span class="cv-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="btn btn-line" href="#contact" data-scrollto>Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ticker" aria-label="Tools and skills"><div class="ticker-track" id="skills"></div></div>
+</section>
+
+<!-- ===== RESEARCH ===== -->
+<section class="sec research" id="research">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="chapter mono c"><b></b> Research</p>
+      <h2 class="title" data-reveal>Games that heal, measure and include.</h2>
+      <p class="sub">I want to work in human-computer interaction and medical interactive systems: game-designed, embodied XR for cognitive assessment and rehabilitation, accessible interaction for people with motor and memory impairments, and playtesting and user-study methods for interactive health tools.</p>
+    </header>
+
+    <article class="feature-research">
+      <div class="fr-vis">
+        <img class="fr-shot" src="assets/vr-livingroom.jpg" alt="The virtual home's living room in the VR cognitive rehabilitation game, with sofas, a coffee table and an open kitchen" loading="lazy" data-img="assets/vr-livingroom.jpg">
+        <div class="fr-room" aria-hidden="true">
+          <span class="fr-chip">Morning</span><span class="fr-chip">Afternoon</span><span class="fr-chip">Evening</span>
+        </div>
+        <div class="fr-modes" aria-hidden="true"><p><b>Mode A</b> Natural hand movement</p><p><b>Mode B</b> Raycast pointer</p></div>
+        <p class="fr-tasks mono">In-headset view · the virtual home's living room</p>
+      </div>
+      <div class="fr-body">
+        <p class="mono kicker"><i class="dot"></i>Current research · Aug 2026 → Present</p>
+        <h3>VR Cognitive Assessment &amp; Rehabilitation Game</h3>
+        <p class="fr-with">Research collaboration with Dr. M. Rasel Mahmud, Kennesaw State University</p>
+        <ul class="fr-list">
+          <li>A Unity-based VR environment for people living with Alzheimer's disease, dementia, MCI, stroke and TBI, built around everyday activities in a realistic virtual home.</li>
+          <li>Memory, sequencing and spatial-orientation tasks across Morning, Afternoon and Evening modules, on standalone HTC Vive Focus Vision.</li>
+          <li>Two interaction modes in a single build, natural hand movement and raycast pointer, to compare accessibility for users with different motor abilities.</li>
+        </ul>
+        <ul class="tags mono"><li>Unity XR</li><li>HCI</li><li>Accessibility</li><li>Cognitive rehabilitation</li></ul>
+      </div>
+    </article>
+
+    <h3 class="sub-h mono">Publications &amp; thesis</h3>
+    <div class="papers">
+      <article class="paper paper-nmt">
+        <div class="paper-vis" aria-hidden="true">
+          <p class="nmt-src">আমি গল্প দিয়ে<br>পৃথিবী বানাই</p>
+          <div class="nmt-net"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="nmt-out">I build worlds<br>out of stories</p>
+        </div>
+        <div class="paper-body">
+          <p class="mono kicker">Published · IEEE ECCE 2023</p>
+          <h3>Bengali to English Neural Machine Translation Using Deep Learning Techniques</h3>
+          <p>M. I. Pranto et al. I built and evaluated deep-learning models for Bengali-to-English translation, published at the 2023 International Conference on Electrical, Computer and Communication Engineering.</p>
+          <div class="actions"><a class="btn btn-solid" href="https://ieeexplore.ieee.org/document/10101491" target="_blank" rel="noopener">Read on IEEE Xplore ↗</a><a class="btn btn-line" href="https://docs.google.com/presentation/d/1m-kUmYCg_53eACLC_lHuGg6AVYm1wp1VAv2U_xoWzBg/edit#slide=id.p" target="_blank" rel="noopener">Slides ↗</a></div>
+        </div>
+      </article>
+      <article class="paper paper-chain">
+        <div class="paper-vis" aria-hidden="true">
+          <div class="chain"><span>#0<br><i>genesis</i></span><span>#1<br><i>vote</i></span><span>#2<br><i>vote</i></span><span>#3<br><i>vote</i></span></div>
+        </div>
+        <div class="paper-body">
+          <p class="mono kicker">Undergraduate Thesis · AUST CSE · 2021</p>
+          <h3>Decentralized Election System</h3>
+          <p>An Ethereum smart-contract voting system with three roles (Election Commission, polling agents and voters). It covers voter verification by national ID, duplicate-vote prevention, constituency and center allocation, and automated result reports, with every vote stored on-chain. Supervised by Md. Khairul Hasan, Associate Professor.</p>
+          <div class="actions"><a class="btn btn-solid" href="https://drive.google.com/file/d/1DrdvSuUe4sH_RZxX7UqTEE1rfM8HWgZK/view?usp=drive_link" target="_blank" rel="noopener">Thesis book ↗</a><a class="btn btn-line" href="https://docs.google.com/presentation/d/1Ds7-KUvA31ArTv2-S2KP1SHuz9SYLrRd/edit?usp=drive_link" target="_blank" rel="noopener">Slides ↗</a></div>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="sub-h mono">Applied user research</h3>
+    <div class="applied">
+      <article class="ap">
+        <p class="mono kicker">Field study · Serious game · UNICEF</p>
+        <h3>Change Agent 2</h3>
+        <p>For a Battery Low Interactive × UNICEF × Light of Hope × DSHE serious game, I went into schools to run field UAT sessions with students, validated gameplay and usability, and bridged feedback between developers and stakeholders. The pilot reached 7,000+ students in 24 schools, and the consolidated findings informed the national rollout.</p>
+        <p class="ap-num"><b>7,000+</b><span>students · 24 schools</span></p>
+      </article>
+      <article class="ap">
+        <p class="mono kicker">Research tooling · Product lead</p>
+        <h3>PlaySense</h3>
+        <p>A lightweight, offline-first playtest telemetry framework with native Unity Editor integration, built to shorten developer playtesting loops.</p>
+        <p class="ap-num"><b>Unity</b><span>offline-first · editor-native</span></p>
+      </article>
+      <article class="ap">
+        <p class="mono kicker">Embodied interaction · Public installation</p>
+        <h3>bKash Goru Dour</h3>
+        <p>A webcam-driven, full-body game in two Dhaka malls. Players ran in place to move their character, with no controller, so anyone walking by could play.</p>
+        <p class="ap-num"><b>1,000+</b><span>public players · 2 days</span></p>
+        <a class="link" href="https://www.facebook.com/patihash.creative/videos/immersive-tech-patihash/3401054116748318/" target="_blank" rel="noopener">Watch it in action ↗</a>
+      </article>
+    </div>
+    <p class="more"><a class="link" href="archive.html">Academic projects &amp; full record in the archive ↗</a></p>
+  </div>
+</section>
+
+<!-- ===== SELECTED WORK ===== -->
+<section class="sec work" id="work">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="chapter mono c"><b></b> Selected Work</p>
+      <h2 class="title" data-reveal>From first sketch to final light.</h2>
+      <p class="sub">The brief, my role, the process and the outcome behind each one.</p>
+    </header>
+    <div class="cases">
+      <article class="case">
+        <div class="case-media">
+          <div class="media case-hero"><div class="ph" style="--h:22"><span>NYAAN EXPRESS</span></div><img src="https://sites.google.com/sitesv-images-rt/AMxu72ta5WL4W7a9oUuWPbkm1Hoo0BuGKbdh_0iKwTcWQqmbkm0I02vtZQzPXHCXSi4QQAwNlLo9DJvI8H8k-fh6AiZ41kzJCYjfVzcIj6_fvajaQKndJr-BRd9CEBfBdTuyz0FSTOd7WI5JNzqWGZzCn4DBtc6ZnElcCJxoMb9yOQHv-PBofLIyGYmSXSaB_r-3hOd7FzIMalZHN1IxNEBKKEurk4XBihusdmAS_2pCLX0=w1600" alt="NYAAN EXPRESS" loading="lazy"></div>
+          
+        </div>
+        <div class="case-body">
+          <p class="mono case-n">Case 01 · patiHash Creative · GameJamPlus 2025–26 · Team of 5</p>
+          <h3>Nyaan Express</h3>
+          <dl class="case-facts">
+            <div><dt class="mono">Brief</dt><dd>A 3D wildlife casual game for Android, made for the 10th GameJamPlus.</dd></div>
+            <div><dt class="mono">My role</dt><dd>Project lead &amp; game designer, leading a 5-person team across Sweden, Japan, Australia and Bangladesh. I owned the core vision, story, level design, environment art and the global production timeline.</dd></div>
+            <div><dt class="mono">Process</dt><dd>We qualified out of the initial jam, then rebuilt the whole game during the incubation stage, coordinating across four time zones, and shipped it again with performance optimizations.</dd></div>
+            <div class="out"><dt class="mono">Outcome</dt><dd>Continental Semi-Finalist, Asia &amp; Oceania. One of the region's finalists at the Google Manila event.</dd></div>
+          </dl>
+          <div class="actions"><a class="btn btn-solid" href="https://mishanto.itch.io/nyaan-express" target="_blank" rel="noopener">Play on itch.io ↗</a></div>
+        </div>
+      </article>
+      <article class="case flip">
+        <div class="case-media">
+          <button class="media case-hero" data-video="_4FPlhUJdsA" data-cursor="Play" aria-label="Play Forza Horizon × Ghibli trailer"><div class="ph" style="--h:40"><span>Forza Horizon × Ghibli trailer</span></div><img src="https://i.ytimg.com/vi/_4FPlhUJdsA/hqdefault.jpg" alt="" loading="lazy" class="yt"><span class="play" aria-hidden="true"></span></button>
+          <div class="case-thumbs"><div class="media"><div class="ph" style="--h:140"><span>Ghibli neighborhood</span></div><img src="https://sites.google.com/sitesv-images-rt/AMxu72shSdAf-av6-SGxoerrbfcN_LKhUYXhXG0IxJHranlbqa64Tpi5tYToBAx95g0wW_YLGhNePW1YsJUEH74M-NZJ-OuL8VaM5a3IFIS-KvfOVbfPW68X7MsHGvOWLto17DH0LvTpFxuWQhm_GD8U-n-H5oYrXT5Vz0yfjoUMMIrCeWbbNp6i0VP6D9QfCdzXTNYsbVigp2sRDS2jKfqDK8EueX-2bimlLoDbBLMw=w800" alt="Ghibli neighborhood" loading="lazy"></div><button class="media" data-video="6Y-K9q2Mqtc" data-cursor="Play" aria-label="Play Ghibli rail station"><div class="ph" style="--h:190"><span>Ghibli rail station</span></div><img src="https://i.ytimg.com/vi/6Y-K9q2Mqtc/hqdefault.jpg" alt="Ghibli rail station" loading="lazy" class="yt"><span class="play sm" aria-hidden="true"></span></button><button class="media" data-video="nbNTDBzJ9W0" data-cursor="Play" aria-label="Play Rise and Shine"><div class="ph" style="--h:30"><span>Rise and Shine</span></div><img src="https://i.ytimg.com/vi/nbNTDBzJ9W0/hqdefault.jpg" alt="Rise and Shine" loading="lazy" class="yt"><span class="play sm" aria-hidden="true"></span></button></div>
+        </div>
+        <div class="case-body">
+          <p class="mono case-n">Case 02 · Solo personal project · Unity 6</p>
+          <h3>Forza Horizon × Ghibli</h3>
+          <dl class="case-facts">
+            <div><dt class="mono">Brief</dt><dd>A stylized cinematic racing trailer: Forza Horizon's open roads, reimagined in a hand-painted Ghibli style.</dd></div>
+            <div><dt class="mono">My role</dt><dd>Solo, made for fun. I did everything: environment art, lighting, post-processing and the cinematic camera.</dd></div>
+            <div><dt class="mono">Process</dt><dd>Stylized environment building, painterly lighting and post-processing, then a cinematic camera pass for the trailer.</dd></div>
+            <div class="out"><dt class="mono">Outcome</dt><dd>A finished cinematic trailer and a personal study in stylized lighting. More frames on ArtStation.</dd></div>
+          </dl>
+          <div class="actions"><button class="btn btn-solid" data-video="_4FPlhUJdsA">Watch the trailer</button><a class="btn btn-line" href="https://prantooo.artstation.com/projects/Qxn6x4" target="_blank" rel="noopener">ArtStation ↗</a></div>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-media">
+          <div class="media case-hero" data-img="assets/sp-monoliths.jpg" data-cursor="View"><div class="ph" style="--h:200"><span>REVERENT OF DAWN</span></div><img src="assets/sp-monoliths.jpg" alt="Reverent of Dawn: two characters before glowing monoliths in a misty arena" loading="lazy"></div>
+          <p class="mono thumbs-cap">Lighting studies · Reverent of Dawn</p>
+          <div class="case-thumbs"><button class="media" data-img="assets/sp-library.jpg" data-cursor="View" aria-label="Open library interior"><div class="ph" style="--h:30"><span>Library</span></div><img src="assets/sp-library.jpg" alt="Gothic library lit by candles" loading="lazy"></button><button class="media" data-img="assets/sp-forge.jpg" data-cursor="View" aria-label="Open forge interior"><div class="ph" style="--h:20"><span>Forge</span></div><img src="assets/sp-forge.jpg" alt="Torch-lit stone forge interior" loading="lazy"></button><button class="media" data-img="assets/sp-hall.jpg" data-cursor="View" aria-label="Open great hall interior"><div class="ph" style="--h:40"><span>Great hall</span></div><img src="assets/sp-hall.jpg" alt="Great hall with chandeliers and long dining table" loading="lazy"></button></div>
+        </div>
+        <div class="case-body">
+          <p class="mono case-n">Case 03 · Sleepy Penguin Studios · 2022–2025 · Steam</p>
+          <h3>Level Design at Sleepy Penguin</h3>
+          <dl class="case-facts">
+            <div><dt class="mono">Brief</dt><dd>Two titles over nearly three years: <em>Reverent of Dawn</em>, an isometric tactical RPG in development for Steam, and <em>A Walk In The Park</em>, a published 3D casual PC game.</dd></div>
+            <div><dt class="mono">My role</dt><dd>Level designer. Technical artist and visual lead on <em>Reverent of Dawn</em>, building stylized environment art and the technical art pipelines in Unity. Level designer and audio lead on <em>A Walk In The Park</em>, where I scripted core interactions, designed the UI and 2D assets, and recorded the voice-over.</dd></div>
+            <div><dt class="mono">Process</dt><dd>I translated design requirements into playable layouts in sprint-based production with programmers, artists and producers, then took each level from block-out to final lighting and post-processing.</dd></div>
+            <div class="out"><dt class="mono">Outcome</dt><dd><em>A Walk In The Park</em> published on PC. <em>Reverent of Dawn</em> is in development for Steam. I later taught this workflow to university students.</dd></div>
+          </dl>
+          <div class="actions"><button class="btn btn-solid" data-video="bW4ZQjvHkk4">Watch the trailer</button><a class="btn btn-line" href="https://drive.google.com/drive/folders/1zmhGHSEJ88HVgW0JTQRZKUzCxQbQmt36?usp=drive_link" target="_blank" rel="noopener">Process files ↗</a><a class="btn btn-line" href="https://www.sleepypenguinstudios.com/" target="_blank" rel="noopener">Studio ↗</a></div>
+        </div>
+      </article>
+      <article class="case flip">
+        <div class="case-media">
+          <div class="media case-hero" id="aiStage" data-img="assets/afterimage.jpg" data-cursor="View"><div class="ph" style="--h:270"><span>AFTERIMAGE</span></div><img src="assets/afterimage.jpg" alt="AFTERIMAGE: a violet orb pulsing above a city where every building is a frequency band, with the form, palette, world and mutate controls" loading="lazy"></div>
+          
+        </div>
+        <div class="case-body">
+          <p class="mono case-n">Case 04 · Open source · Live on the web</p>
+          <h3>AFTERIMAGE</h3>
+          <dl class="case-facts">
+            <div><dt class="mono">Brief</dt><dd>A browser-based generative 3D music visualizer. Play a track and watch it turn into a living, shader-driven world, like a city skyline where every building is a frequency band.</dd></div>
+            <div><dt class="mono">My role</dt><dd>Creator. Concept, visual design, shaders and code.</dd></div>
+            <div><dt class="mono">Process</dt><dd>Listen to any browser tab, drop in a file or use the mic, and nothing leaves your device. You shape it with four forms (orb, fractal, ribbon, void), color palettes and worlds (cosmos, city, desert, forest, ocean). Mutate it into new generations with a lineage you can undo, then record or share the result. It's built as a no-build, single-file web app.</dd></div>
+            <div class="out"><dt class="mono">Outcome</dt><dd>Live and open source on GitHub Pages. Every universe gets its own shareable seed. Try it right here.</dd></div>
+          </dl>
+          <div class="actions"><button class="btn btn-solid" id="aiLaunch" data-src="https://pranto1416.github.io/AFTERIMAGE/#s=WzMsInNpbHZlci1tb3RoLTQxNyIsIm9yYiIsInZpb2xldCIsMC41NSwwLjUsMC42LDAuNTUsMC40NSwxLjQsMC4xLDAuMTUsMC4zNSwxLDAsImF1dG8iLCJhdXRvIl0">Launch live demo</button><a class="btn btn-line" href="https://pranto1416.github.io/AFTERIMAGE/#s=WzMsInNpbHZlci1tb3RoLTQxNyIsIm9yYiIsInZpb2xldCIsMC41NSwwLjUsMC42LDAuNTUsMC40NSwxLjQsMC4xLDAuMTUsMC4zNSwxLDAsImF1dG8iLCJhdXRvIl0" target="_blank" rel="noopener">Open full screen ↗</a><a class="btn btn-line" href="https://github.com/pranto1416/AFTERIMAGE" target="_blank" rel="noopener">GitHub ↗</a></div>
+        </div>
+      </article>
+    </div>
+    <div class="also">
+      <p class="mono">Also</p>
+      <div class="also-row">
+        <div class="also-item also-feature"><div><b>bKash Goru Dour</b><span>Technical artist &amp; visual lead · An immersive, full-body Eid-ul-Adha 2026 campaign game for bKash Limited. Players stand in front of a webcam and run in place to control the herder chasing the cow, with no controller. It was projected at Bashundhara City and Jamuna Future Park, Dhaka, and played by an estimated 1,000+ people over two days.</span></div><a class="btn btn-solid" href="https://www.facebook.com/patihash.creative/videos/immersive-tech-patihash/3401054116748318/" target="_blank" rel="noopener">Watch it in action ↗</a></div>
+        <div class="also-item"><b>Room 392 / Ecliptica</b><span>In development · Third-person psychological horror · Unreal Engine 5 · patiHash</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REEL ===== -->
+<section class="worlds" id="worlds">
+  <div class="worlds-pin">
+    <header class="worlds-head wrap">
+      <p class="chapter mono c"><b></b> Artistry</p>
+      <h2 class="title">3D level design &amp; environments</h2>
+      <p class="hint mono">Keep scrolling · Click a frame to play</p>
+    </header>
+    <div class="reel-track" id="reelTrack"></div>
+    <div class="reel-progress wrap" aria-hidden="true"><i id="reelBar"></i><span class="mono" id="reelCount">01 / 07</span></div>
+  </div>
+</section>
+
+<!-- ===== ARTISTRY: GAME ART & VFX ===== -->
+<section class="sec gameart" id="gameart">
+  <div class="wrap">
+    <div class="lane" id="vfxLane" hidden>
+      <header class="lane-head"><h3 class="lane-title">VFX &amp; shaders</h3><p class="mono">Particles · HLSL shaders · real-time effects</p></header>
+      <div class="vfx-grid" id="vfxGrid"></div>
+    </div>
+    <div class="lane">
+      <header class="lane-head"><h3 class="lane-title">Game art &amp; art direction</h3><p class="mono">Concept · environments · UI · art direction</p></header>
+      <div class="art-grid" id="artGrid"></div>
+      <p class="more"><a class="link" href="http://prantooo.artstation.com" target="_blank" rel="noopener">ArtStation ↗</a><a class="link" href="https://www.behance.net/mutakabpranto" target="_blank" rel="noopener">Behance ↗</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEADERSHIP ===== -->
+<section class="sec stage" id="leadership">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="chapter mono c"><b></b> Leadership &amp; Community</p>
+      <h2 class="title" data-reveal>I lead studios, rooms and communities.</h2>
+      <p class="sub">I co-founded patiHash Creative and lead crew across four countries. I teach level design and lighting at universities in Dhaka, manage Bangladesh's game developer community, and I'm a national public speaking champion.</p>
+    </header>
+  </div>
+  <div class="stage-hero">
+    <div class="stage-frame media" id="stageFrame">
+      <div class="ph" style="--h:28"><span>LIVE · AUST WORKSHOP</span></div>
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72sEx613Jyqv1tcinjQNNWpNQE-5b0N5UoGsVYx_m4i_YvHkUNTV8GMfBiOrfza_Id33EVq1bpnD50RsMn77jpLVKfugvPmx7_HBKoTRGJqB11iphJkYYgOTwRiJJAnkvXxVCcglApeB7VTgTw0wWvu5GIg86Ee3zu0JytSUsEsOEoUCsuTI-JS007Dgqxll_7e9_PAOocCqct1VvwoWW6Tmrlio2iVOGHJaLoeXTNc=w1600" alt="Pranto teaching a workshop on level design and lighting at AUST" loading="lazy">
+      <div class="stage-cap">
+        <p class="mono live"><i></i>Live · AUST</p>
+        <h3>Workshop on Level Design &amp; Lighting</h3>
+        <div class="actions">
+          <a class="btn btn-solid" href="https://www.facebook.com/reel/606792985299647" target="_blank" rel="noopener">Watch the reel ↗</a>
+          <a class="btn btn-line" href="https://lnkd.in/p/geSA3FKS" target="_blank" rel="noopener">LinkedIn post ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="events">
+      <article class="event">
+        <p class="mono ev-k">Industrial Training · IUT · 2023 →</p>
+        <h3>Islamic University of Technology</h3>
+        <p>An industrial training program on level design, lighting and post-processing. Since 2023 I've taught nearly 100 international and domestic students.</p>
+        <a class="btn btn-line" href="https://lnkd.in/p/g3Ad5ExS" target="_blank" rel="noopener">LinkedIn post ↗</a>
+      </article>
+      <article class="event">
+        <p class="mono ev-k">Workshop · NITER · 2 hours</p>
+        <h3>National Institute of Textile Engineering &amp; Research</h3>
+        <p>A two-hour hands-on game development workshop for NITER students.</p>
+        <a class="btn btn-line" href="https://www.facebook.com/photo/?fbid=8921805137877043" target="_blank" rel="noopener">See photos ↗</a>
+      </article>
+      <article class="event talk">
+        <p class="mono ev-k">Guest Speaker · GameJamPlus 11th Edition · 2026 →</p>
+        <h3>GAMEJAMPLUS<span>.EXE</span></h3>
+        <p>University talks across Bangladesh on game jams, prototyping and industry-oriented development, starting with "How to Survive a Game Jam".</p>
+        <a class="btn btn-line" href="https://prantooo.itch.io/gjplus" target="_blank" rel="noopener">View on itch.io ↗</a>
+      </article>
+    </div>
+    <h3 class="sub-h mono">Workshop decks</h3>
+    <div class="decks" id="decks"></div>
+    <h3 class="sub-h mono">Community &amp; volunteering</h3>
+    <div class="orgs">
+      <article class="org org-feature">
+        <div class="media org-img"><div class="ph" style="--h:200"><span>GDCB</span></div><img src="https://sites.google.com/sitesv-images-rt/AMxu72slQACVQw_unJkg2iewBuQxLJXTStzzSlHwhMz39_AKiMAMZKeYT-qRX0AA99OWLokIgLj44GSZv3vKhoHT-1lGnFfNa9NPuInm6jxtVSMP1FyqhjUUmX1R6I99CuZodM4dfBQTAc3yNMou24xU8VjNm3wcOKf6CJp0yyFax0RyON7VZ-jeBtda0okyaHzmvIPJI94UH1EqWmP_6gtohIAVKI_RqBr9VY98lIke4rU=w1280" alt="Game Developers Community Bangladesh" loading="lazy"></div>
+        <div class="org-body">
+          <h3>Game Developers Community Bangladesh</h3>
+          <ol class="roles"><li><b>Community Manager</b><span class="mono">May 2024 → Present</span><i>Grew a 300-member community of programmers, designers and studio founders. I run an open-source collaborative production pipeline and a Discord support hub.</i></li></ol>
+          <p class="ap-num"><b>300</b><span>active members</span></p>
+        </div>
+      </article>
+      <article class="org">
+        <h3>AUST Innovation &amp; Design Club</h3>
+        <ol class="roles">
+          <li><b>General Secretary</b><span class="mono">24 Dec 2021 → 23 Jun 2022</span><i>Department of Automation &amp; Programming. Co-organized MINDSPARKS'22 (2,000+ participants, 16 segments, 50+ project showcases) and co-founded a student team building an educational satellite and IoT hardware.</i></li>
+          <li><b>Executive Committee Member</b><span class="mono">6 Jan 2021 → 23 Dec 2021</span><i>Department of Automation &amp; Programming</i></li>
+          <li><b>Sub Executive Committee Member</b><span class="mono">Apr 2019 → 5 Jan 2021</span><i>Department of Photography &amp; Graphics</i></li>
+        </ol>
+      </article>
+      <article class="org">
+        <h3>AUST Debating Club</h3>
+        <ol class="roles"><li><b>Debater</b><span class="mono">2018 → 2020</span></li></ol>
+      </article>
+      <article class="org">
+        <h3>Thrust Robotics School</h3>
+        <ol class="roles"><li><b>Freelance Photographer</b><span class="mono">2019 → 2020</span></li></ol>
+      </article>
+      <article class="org">
+        <h3>Agricultural University High School Debating Club</h3>
+        <ol class="roles">
+          <li><b>Founder President</b><span class="mono">Jan 2014 → Apr 2015</span></li>
+          <li><b>Debater</b></li>
+        </ol>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLAYGROUND ===== -->
+<section class="sec playground" id="playground">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="chapter mono c"><b></b> Playground</p>
+      <h2 class="title" data-reveal>Games, photos and stories I make for fun.</h2>
+    </header>
+    <div class="tabs" role="tablist" aria-label="Playground">
+      <button role="tab" id="tab-arcade" aria-controls="p-arcade" aria-selected="true" class="tab on">Arcade <span class="mono">8 games</span></button>
+      <button role="tab" id="tab-photo" aria-controls="p-photo" aria-selected="false" class="tab">Photography <span class="mono">35</span></button>
+      <button role="tab" id="tab-stories" aria-controls="p-stories" aria-selected="false" class="tab">Stories <span class="mono">6</span></button>
+    </div>
+    <div class="tabpanel" id="p-arcade" role="tabpanel" aria-labelledby="tab-arcade">
+      <div class="pg-intro"><p>Real games, not mockups. Four run right in your browser.</p>
+        <div class="filters" role="group" aria-label="Filter games">
+          <button class="filter on" data-filter="all" aria-pressed="true">All <span class="mono">8</span></button>
+          <button class="filter" data-filter="web" aria-pressed="false">In browser <span class="mono">4</span></button>
+          <button class="filter" data-filter="pc" aria-pressed="false">PC <span class="mono">4</span></button>
+        </div></div>
+      <div class="carts" id="carts"></div>
+
+    <div class="lab">
+      <p class="chapter mono small"><b>+</b> From the lab: AR &amp; experiments</p>
+      <div class="lab-row" id="lab"></div>
+    </div>
+    
+      <p class="more"><a class="link" href="https://prantooo.itch.io/" target="_blank" rel="noopener">All games on itch.io ↗</a></p>
+    </div>
+    <div class="tabpanel" id="p-photo" role="tabpanel" aria-labelledby="tab-photo" hidden>
+      <p class="pg-note">St Martin's Island · Sylhet · Sreemangal · Cox's Bazar · Barishal · Dhaka · Mymensingh</p>
+      <div class="photo-grid" id="photoGrid"></div>
+    </div>
+    <div class="tabpanel" id="p-stories" role="tabpanel" aria-labelledby="tab-stories" hidden>
+      <div class="files">
+      <a class="file" href="https://docs.google.com/document/d/1by5gYWI9DYUvHhV8YdVTR0-pCOd0ABK-9beldbA7m0g/edit?tab=t.0" target="_blank" rel="noopener" data-cursor="Read"><span class="mono">CASE 01 · SCI-FI ACTION</span><h3>N Y X I A</h3><p>Tale of a Cyborg Samurai</p></a>
+      <a class="file" href="https://docs.google.com/document/d/1L2xjsr1fOGVAndKhw4i1WKCBLEnCs4aNig2Ob3ng7fQ/edit?tab=t.0" target="_blank" rel="noopener" data-cursor="Read"><span class="mono">CASE 02 · CONCEPT</span><h3>Chorono's Edge</h3><p>Game story concept</p></a>
+      <a class="file" href="https://docs.google.com/document/d/1c-_S0i5bsYiEv5MCkT4mvz7I6E0a-Ara-Gmjf42wzF0/edit?tab=t.0" target="_blank" rel="noopener" data-cursor="Read"><span class="mono">CASE 03 · CONCEPT</span><h3>H O P E</h3><p>Game story concept</p></a>
+      <a class="file" href="https://docs.google.com/document/d/1VCxhRx-gH8aewWVZ-6X-zvI8LyU3iqjQavXxvMQz-18/edit?usp=sharing" target="_blank" rel="noopener" data-cursor="Read"><span class="mono">CASE 04 · MULTIPLAYER</span><h3>Nightfall</h3><p>Multiplayer survival game</p></a>
+      <div class="file sealed"><span class="mono">CASE 05 · SEALED</span><h3>Ecliptica</h3><p>The story of Room 392. Psychological horror.</p></div>
+      <a class="file" href="https://docs.google.com/document/d/1eK5vrMFYP_Ns6rd3x0Z_lC_-xLYq5Lkof00DgmIFblY/edit?tab=t.0" target="_blank" rel="noopener" data-cursor="Read"><span class="mono">ARCHIVE</span><h3>Writing &amp; Scripts</h3><p>More story writing and scripting</p></a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section class="sec log" id="log">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="chapter mono c"><b></b> Experience</p>
+      <h2 class="title" data-reveal>From breaking games to leading a studio.</h2>
+    </header>
+    <ol class="timeline" id="timeline">
+      <li class="tl-line" aria-hidden="true"><i id="tlFill"></i></li>
+      <li class="tl now"><p class="mono d">Aug 2025 → Now</p><h3>Co-Founder</h3><p class="o"><a href="https://www.patihash.com/" target="_blank" rel="noopener">patiHash Creative ↗</a></p><p>I lead product vision, roadmaps and delivery for an interactive technology studio (games, mixed reality, software) with a team across Bangladesh, Sweden, Australia and Japan. I also manage client discovery and milestone reviews, built partnerships with universities and studios to grow Bangladesh's game development ecosystem, and designed the studio's interactive website in Figma.</p></li>
+      <li class="tl"><p class="mono d">Nov 2022 → Sep 2025</p><h3>Level Designer</h3><p class="o"><a href="https://www.sleepypenguinstudios.com/" target="_blank" rel="noopener">Sleepy Penguin Studios ↗</a></p><p>I translated design requirements into playable environments and shipped gameplay features on time with programmers, artists and producers, through sprint planning and milestone reviews.</p></li>
+      <li class="tl"><p class="mono d">Jun 2023 → Sep 2025</p><h3>Industrial Trainer</h3><p class="o"><a href="https://wishescometrue.batterylowinteractive.com/" target="_blank" rel="noopener">Battery Low Interactive ↗</a></p><p>I run workshops on technical level design, lighting and production workflow. Through the IUT industrial training program I've taught nearly 100 international and domestic students since 2023.</p></li>
+      <li class="tl"><p class="mono d">Jan 2022 → Nov 2022</p><h3>Game QA Associate</h3><p class="o"><a href="https://wishescometrue.batterylowinteractive.com/" target="_blank" rel="noopener">Battery Low Interactive ↗</a></p><p>QA and UAT across mobile, PC and web, including the UNICEF-supported serious game <em>Change Agent 2</em>, piloted with 7,000+ students in 24 schools. I also gave creative direction on hyper-casual titles and voiced cutscenes.</p></li>
+      <li class="tl"><p class="mono d">Sep 2021 → Dec 2021</p><h3>Game QA Intern</h3><p class="o"><a href="https://wishescometrue.batterylowinteractive.com/" target="_blank" rel="noopener">Battery Low Interactive ↗</a></p><p>Where it began: breaking games on purpose.</p></li>
+    </ol>
+    <div class="recog">
+      <h3 class="sub-h mono">Recognition</h3>
+      <div class="recog-row">
+        <div class="rc"><span class="mono">2025–26 · GameJamPlus</span><b>Continental Semi-Finalist</b><i>Asia &amp; Oceania, with Nyaan Express</i></div>
+        <div class="rc"><span class="mono">2023 · IEEE ECCE</span><b>Published Researcher</b><i>Bengali to English neural machine translation</i></div>
+        <div class="rc"><span class="mono">2014 · National Debate Federation</span><b>National Champion</b><i>Bangla public speaking</i></div>
+      </div>
+      <p class="service"><span class="mono">Service</span> Judge: AUST CSE Carnival 7.0 GameJam (2026) · Software Showcasing, MINDSPARKS'23 · Prompt Craft, INNOVENTURE'25</p>
+      <h3 class="sub-h mono">Education</h3>
+      <ul class="edu">
+        <li><b>BSc, Computer Science &amp; Engineering</b><span>Ahsanullah University of Science &amp; Technology · 2025</span></li>
+        <li><b>English · IELTS 8.0</b><span>C1 · Bangla native</span></li>
+      </ul>
+      <p class="more"><a class="link" href="archive.html">Full honors, education &amp; academic projects ↗</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOOLKIT ===== -->
+<section class="sec toolkit" id="toolkit">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="chapter mono c"><b></b> Toolkit</p>
+      <h2 class="title" data-reveal>What I do, and what I do it with.</h2>
+    </header>
+    <div class="kit">
+      <div class="kit-craft">
+        <h3 class="mono">The craft</h3>
+        <ul class="crafts"><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l9 4 9-4M3 12l9 4 9-4M12 3l9 4-9 4-9-4z"/></svg></span><b>Level Design</b><span>Block-outs, flow, pacing</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></span><b>Lighting &amp; Post</b><span>URP / HDRP / UE5 mood</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20l7-11 4 6 3-4 6 9z"/><circle cx="17" cy="6" r="2"/></svg></span><b>Environment Art</b><span>Stylized &amp; Ghibli-inspired worlds</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="12" r="2.5"/><circle cx="5" cy="18" r="2.5"/><path d="M7.5 6c5 0 6 6 9 6M7.5 18c5 0 6-6 9-6"/></svg></span><b>Technical Art</b><span>Shaders, VFX, procedural tools</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="14" r="1"/></svg></span><b>Game Design</b><span>Systems, loops, jam-speed prototyping</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg></span><b>Story Writing</b><span>Scripts, lore, story bibles</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></span><b>Voice-Over</b><span>Recording &amp; directing VO</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16M5 8h2M11 8h2M11 12h2M17 8h2"/></svg></span><b>Project Management</b><span>Sprints, scope, shipping</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></span><b>Public Speaking</b><span>National champion, workshop host</span></li><li class="craft"><span class="craft-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg></span><b>Mentoring</b><span>Training students &amp; juniors</span></li></ul>
+      </div>
+      <div class="kit-tools"><div class="tgroup"><h3 class="mono">Core tools</h3><ul class="tools"><li class="tool"><span class="sticker"><img src="assets/icons/unity.svg" alt="" width="40" height="40" loading="lazy"></span><b>Unity</b><span>Main engine: gameplay, levels, URP/HDRP</span></li><li class="tool"><span class="sticker"><img src="assets/icons/unrealengine.svg" alt="" width="40" height="40" loading="lazy"></span><b>Unreal Engine 5</b><span>Room 392, Warrior&#39;s Tale</span></li><li class="tool"><span class="sticker"><img src="assets/icons/blender.svg" alt="" width="40" height="40" loading="lazy"></span><b>Blender</b><span>Props, kitbash, environment pieces</span></li><li class="tool"><span class="sticker"><img src="assets/icons/threejs.svg" alt="" width="40" height="40" loading="lazy"></span><b>Three.js</b><span>Real-time web 3D, like this site</span></li><li class="tool"><span class="sticker"><img src="assets/icons/csharp.svg" alt="" width="40" height="40" loading="lazy"></span><b>C#</b><span>Unity gameplay scripting</span></li><li class="tool"><span class="sticker"><img src="assets/icons/cplusplus.svg" alt="" width="40" height="40" loading="lazy"></span><b>C++ &amp; Blueprints</b><span>Unreal gameplay</span></li><li class="tool"><span class="sticker"><img src="assets/icons/python.svg" alt="" width="40" height="40" loading="lazy"></span><b>Python</b><span>ML research, tools</span></li><li class="tool"><span class="sticker"><img src="assets/icons/photoshop.svg" alt="" width="40" height="40" loading="lazy"></span><b>Photoshop</b><span>Textures, key art, UI</span></li><li class="tool"><span class="sticker"><img src="assets/icons/figma.svg" alt="" width="40" height="40" loading="lazy"></span><b>Figma</b><span>Wireframes &amp; UI</span></li><li class="tool"><span class="sticker"><img src="assets/icons/jira.svg" alt="" width="40" height="40" loading="lazy"></span><b>JIRA</b><span>Sprint planning</span></li></ul></div><p class="also-tools"><span class="mono">Also</span> Unreal Blueprints · Android SDK · ASP.NET · Arduino · Deep learning · Notion · Miro · Git · Adobe XD · Trello · Agile/Scrum · Playtesting · UAT</p><p class="more"><a class="link" href="archive.html#tools">Full toolkit ↗</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="contact-inner wrap">
+    <p class="chapter mono c"><b></b> Contact</p>
+    <h2 class="contact-title"><span>Cross the</span><span class="hl">event horizon.</span></h2>
+    <p class="sub">Research collaborations, graduate supervision, studio partnerships or creative roles. Send the signal.</p>
+    <div class="mail-row">
+      <a class="mail" href="mailto:pranto1416@gmail.com" data-cursor="Write">pranto1416@gmail.com</a>
+      <button class="btn btn-line copy" id="copyMail" data-copy="pranto1416@gmail.com">Copy</button>
+    </div>
+    <ul class="socials mono">
+      <li><a href="https://www.linkedin.com/in/mutakabbirul-islam-pranto14/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="http://prantooo.artstation.com" target="_blank" rel="noopener">ArtStation</a></li>
+      <li><a href="https://prantooo.itch.io/" target="_blank" rel="noopener">itch.io</a></li>
+      <li><a href="https://www.youtube.com/channel/UCnX9qf10lcvY_byJqoJ6v3w" target="_blank" rel="noopener">YouTube</a></li>
+      <li><a href="https://www.behance.net/mutakabpranto" target="_blank" rel="noopener">Behance</a></li>
+      <li><a href="https://drive.google.com/file/d/1e1Hft1m4cRprtTYnw18fV-f9aW-4jpDA/view?usp=drive_link" target="_blank" rel="noopener">Résumé / CV</a></li>
+      <li><a href="archive.html">Archive</a></li>
+    </ul>
+  </div>
+  <footer class="foot mono">
+    <span>© <span id="yr">2026</span> Mutakabbirul Islam Pranto</span>
+    <span>Rendered live in your browser · No astronauts were harmed</span>
+    <a href="#top" data-scrollto>↑ Back to the tunnel</a>
+  </footer>
+</section>
+
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Media viewer" hidden>
+  <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+  <div class="modal-body" id="modalBody"></div>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/local-images.js"></script>
+<script src="js/universe.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
