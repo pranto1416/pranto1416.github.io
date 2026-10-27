@@ -1,6 +1,6 @@
 /* PRANTOVERSE: generative space-organ score, composed live with the Web Audio API (no audio files).
    An original piece in the spirit of a dark cosmic film score: slow pipe-organ chords in A minor,
-   a deep pedal note, a soft repeating organ arpeggio that swells and recedes, a ticking clock,
+   a deep pedal note, a soft repeating organ arpeggio that swells and recedes, a singing lead melody, a ticking clock,
    and distant low rumble. One clock drives everything, so all parts stay in sync.
    Browsers only allow sound after a click, so it starts from the Sound button. */
 (function () {
@@ -21,7 +21,20 @@
     { bass: 28, notes: [52, 57, 59, 64], arp: [56, 59, 64, 68, 64, 59] }
   ];
 
-  let ctx, master, verb, organWave, pedalWave, running = false, timer = null, nextBeat = 0, beat = 0, loops = [];
+  // the tune: two original melodies, [midi note | null for rest, beats], one line per chord (16 beats each)
+  const MELODIES = [
+    [ [[76,4],[74,2],[72,2],[71,2],[72,2],[69,4]],
+      [[69,2],[72,2],[77,4],[76,2],[74,2],[72,4]],
+      [[74,4],[77,2],[76,2],[74,2],[72,2],[69,4]],
+      [[71,3],[72,1],[71,2],[69,2],[71,4],[76,4]] ],
+    [ [[69,2],[72,2],[76,6],[74,2],[72,4]],
+      [[72,3],[74,1],[72,2],[69,2],[65,4],[69,4]],
+      [[69,2],[74,2],[77,6],[76,2],[74,4]],
+      [[72,4],[71,4],[69,4],[null,4]] ]
+  ];
+  const MEL_AT = MELODIES.map(m => m.map(line => { const at = {}; let b = 0; line.forEach(([n, d]) => { if (n !== null) at[b] = [n, d]; b += d; }); return at; }));
+
+  let echo, ctx, master, verb, organWave, pedalWave, running = false, timer = null, nextBeat = 0, beat = 0, loops = [];
 
   function impulse(sec, decay) {
     const r = ctx.sampleRate, len = r * sec, b = ctx.createBuffer(2, len, r);
@@ -43,6 +56,12 @@
 
     verb = ctx.createConvolver(); verb.buffer = impulse(9, 2.2);      // cathedral-sized tail
     const vg = ctx.createGain(); vg.gain.value = 0.8; verb.connect(vg); vg.connect(master);
+
+    echo = ctx.createDelay(3); echo.delayTime.value = BEAT * 1.5;
+    const efb = ctx.createGain(); efb.gain.value = 0.32;
+    const elp = ctx.createBiquadFilter(); elp.type = 'lowpass'; elp.frequency.value = 1400;
+    echo.connect(elp); elp.connect(efb); efb.connect(echo); elp.connect(verb);
+    const eout = ctx.createGain(); eout.gain.value = 0.5; elp.connect(eout); eout.connect(master);
 
     // pipe-organ registrations (8' + 4' + 2 2/3' + 2' flavour)
     organWave = wave([1, 0.55, 0.22, 0.28, 0.05, 0.12, 0, 0.06]);
@@ -73,6 +92,20 @@
       o.connect(g); g.connect(master); g.connect(verb); o.start(t); o.stop(t + dur + 2);
     });
   }
+  // the singing lead: soft flute-like tone with a slow, late vibrato
+  function lead(n, t, dur) {
+    const f = mtof(n), end = t + dur * 0.97;
+    const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+    const o2 = ctx.createOscillator(); o2.type = 'triangle'; o2.frequency.value = f * 2;
+    const g2 = ctx.createGain(); g2.gain.value = 0.18;
+    const vib = ctx.createOscillator(); vib.frequency.value = 4.8;
+    const vg = ctx.createGain(); vg.gain.setValueAtTime(0, t); vg.gain.linearRampToValueAtTime(f * 0.006, t + Math.min(1.2, dur * 0.6));
+    vib.connect(vg); vg.connect(o.frequency); vg.connect(o2.frequency);
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(0.05, t + 0.14); g.gain.linearRampToValueAtTime(0.038, t + Math.max(0.3, dur * 0.7)); g.gain.linearRampToValueAtTime(0.0001, end + 0.35);
+    o.connect(g); o2.connect(g2); g2.connect(g); g.connect(master); g.connect(verb); g.connect(echo);
+    [o, o2, vib].forEach(x => { x.start(t); x.stop(end + 0.4); });
+  }
   function tick(t, accent) {
     const len = 0.03, b = ctx.createBuffer(1, ctx.sampleRate * len, ctx.sampleRate), d = b.getChannelData(0);
     for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 6);
@@ -94,11 +127,12 @@
         if (phrase % 2 === 1) organ(ch.notes[3] + 12, nextBeat + BEAT * 4, dur - BEAT * 4, 0.009, 5); // high descant on alternate passes
       }
       tick(nextBeat, inChord % 4 === 0);
+      if (beat >= CHORD_BEATS) { const ev = MEL_AT[phrase % 2][ci][inChord]; if (ev) lead(ev[0], nextBeat, ev[1] * BEAT); }
       if (phrase > 0 || beat >= CHORD_BEATS) {
         const swell = 0.35 + 0.65 * Math.sin(Math.PI * ((beat % (CHORD_BEATS * CHORDS.length)) / (CHORD_BEATS * CHORDS.length)));
         for (let k = 0; k < 2; k++) {                     // two arpeggio notes per beat
           const step = (inChord * 2 + k) % ch.arp.length;
-          organ(ch.arp[step], nextBeat + k * BEAT / 2, BEAT / 2 * 0.9, 0.014 * swell, 0.03);
+          organ(ch.arp[step], nextBeat + k * BEAT / 2, BEAT / 2 * 0.9, 0.009 * swell, 0.03);
         }
       }
       nextBeat += BEAT; beat++;

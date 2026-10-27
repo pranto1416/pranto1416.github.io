@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prantoverse.github.io/sitemap.xml
