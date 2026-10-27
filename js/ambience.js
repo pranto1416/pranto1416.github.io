@@ -1,6 +1,7 @@
-/* PRANTOVERSE: cozy generative ambience.
-   A slow lo-fi space pad composed live with the Web Audio API (no audio files):
-   warm chord pads, a soft bass, sparse music-box notes with echo, and faint vinyl crackle.
+/* PRANTOVERSE: generative space-organ score, composed live with the Web Audio API (no audio files).
+   An original piece in the spirit of a dark cosmic film score: slow pipe-organ chords in A minor,
+   a deep pedal note, a soft repeating organ arpeggio that swells and recedes, a ticking clock,
+   and distant low rumble. One clock drives everything, so all parts stay in sync.
    Browsers only allow sound after a click, so it starts from the Sound button. */
 (function () {
   const btn = document.getElementById('soundBtn');
@@ -8,109 +9,127 @@
   const AC = window.AudioContext || window.webkitAudioContext;
   if (!AC) { btn.hidden = true; return; }
 
-  let ctx, master, verb, delay, running = false, timer = null, step = 0;
-  const VOL = 0.22;
+  const BEAT = 60 / 62;                // slow: 62 bpm
+  const CHORD_BEATS = 16;              // each chord lasts four slow bars
+  const VOL = 0.5;
   const mtof = n => 440 * Math.pow(2, (n - 69) / 12);
-  // Fmaj9 → Em7 → Dm9 → Cmaj7(add9): warm, unresolved, cozy
+  // A minor, dark and suspended: Am → Fmaj7 → Dm(add9) → Esus4 → E(m)
   const CHORDS = [
-    [53, 57, 60, 64, 67], [52, 55, 59, 62, 66], [50, 53, 57, 60, 64], [48, 52, 55, 59, 62]
+    { bass: 33, notes: [57, 60, 64, 69], arp: [57, 64, 69, 72, 69, 64] },
+    { bass: 29, notes: [53, 57, 60, 64], arp: [53, 60, 64, 69, 64, 60] },
+    { bass: 26, notes: [50, 53, 57, 64], arp: [57, 62, 65, 69, 65, 62] },
+    { bass: 28, notes: [52, 57, 59, 64], arp: [56, 59, 64, 68, 64, 59] }
   ];
-  const BASS = [41, 40, 38, 36];
-  const SCALE = [72, 74, 76, 79, 81, 84, 86]; // C major pentatonic, high
-  const BAR = 8; // seconds per chord
 
-  function impulse(seconds, decay) {
-    const rate = ctx.sampleRate, len = rate * seconds, buf = ctx.createBuffer(2, len, rate);
-    for (let c = 0; c < 2; c++) {
-      const d = buf.getChannelData(c);
-      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
-    }
-    return buf;
+  let ctx, master, verb, organWave, pedalWave, running = false, timer = null, nextBeat = 0, beat = 0, loops = [];
+
+  function impulse(sec, decay) {
+    const r = ctx.sampleRate, len = r * sec, b = ctx.createBuffer(2, len, r);
+    for (let c = 0; c < 2; c++) { const d = b.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay); }
+    return b;
+  }
+  function wave(partials) {
+    const real = new Float32Array(partials.length + 1), imag = new Float32Array(partials.length + 1);
+    partials.forEach((g, i) => imag[i + 1] = g);
+    return ctx.createPeriodicWave(real, imag);
   }
 
   function build() {
     ctx = new AC();
     master = ctx.createGain(); master.gain.value = 0;
-    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400;
-    master.connect(lp); lp.connect(ctx.destination);
+    const dim = ctx.createBiquadFilter(); dim.type = 'lowpass'; dim.frequency.value = 1900; dim.Q.value = 0.5; // the "dim" knob
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 2.5; comp.knee.value = 12;
+    master.connect(dim); dim.connect(comp); comp.connect(ctx.destination);
 
-    verb = ctx.createConvolver(); verb.buffer = impulse(5, 3);
-    const verbGain = ctx.createGain(); verbGain.gain.value = 0.55;
-    verb.connect(verbGain); verbGain.connect(master);
+    verb = ctx.createConvolver(); verb.buffer = impulse(9, 2.2);      // cathedral-sized tail
+    const vg = ctx.createGain(); vg.gain.value = 0.8; verb.connect(vg); vg.connect(master);
 
-    delay = ctx.createDelay(2); delay.delayTime.value = 0.42;
-    const fb = ctx.createGain(); fb.gain.value = 0.38;
-    const dl = ctx.createBiquadFilter(); dl.type = 'lowpass'; dl.frequency.value = 1800;
-    delay.connect(dl); dl.connect(fb); fb.connect(delay); dl.connect(master); dl.connect(verb);
+    // pipe-organ registrations (8' + 4' + 2 2/3' + 2' flavour)
+    organWave = wave([1, 0.55, 0.22, 0.28, 0.05, 0.12, 0, 0.06]);
+    pedalWave = wave([1, 0.7, 0.2, 0.15]);
 
-    // vinyl crackle: sparse clicks over soft hiss
-    const len = ctx.sampleRate * 3, nb = ctx.createBuffer(1, len, ctx.sampleRate), d = nb.getChannelData(0);
-    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * 0.012 + (Math.random() < 0.0004 ? (Math.random() * 2 - 1) * 0.5 : 0);
-    const crackle = ctx.createBufferSource(); crackle.buffer = nb; crackle.loop = true;
-    const cf = ctx.createBiquadFilter(); cf.type = 'bandpass'; cf.frequency.value = 2800; cf.Q.value = 0.6;
-    const cg = ctx.createGain(); cg.gain.value = 0.35;
-    crackle.connect(cf); cf.connect(cg); cg.connect(master); crackle.start();
+    // distant rumble
+    const n = ctx.createBuffer(1, ctx.sampleRate * 4, ctx.sampleRate), d = n.getChannelData(0);
+    let last = 0; for (let i = 0; i < d.length; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.5; }
+    const r = ctx.createBufferSource(); r.buffer = n; r.loop = true;
+    const rf = ctx.createBiquadFilter(); rf.type = 'lowpass'; rf.frequency.value = 140;
+    const rg = ctx.createGain(); rg.gain.value = 0.22;
+    r.connect(rf); rf.connect(rg); rg.connect(master); r.start(); loops.push(r);
   }
 
-  function pad(notes, t) {
-    notes.forEach((n, i) => {
-      [-6, 6].forEach(det => {
-        const o = ctx.createOscillator(); o.type = i % 2 ? 'sine' : 'triangle';
-        o.frequency.value = mtof(n); o.detune.value = det;
-        const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.setValueAtTime(500, t); f.frequency.linearRampToValueAtTime(1100, t + BAR * 0.5); f.frequency.linearRampToValueAtTime(600, t + BAR);
-        const g = ctx.createGain(); g.gain.setValueAtTime(0, t);
-        g.gain.linearRampToValueAtTime(0.028, t + 2.4); g.gain.setValueAtTime(0.028, t + BAR - 1.2); g.gain.linearRampToValueAtTime(0, t + BAR + 2.5);
-        o.connect(f); f.connect(g); g.connect(master); g.connect(verb);
-        o.start(t); o.stop(t + BAR + 3);
-      });
+  function organ(n, t, dur, peak, attack, out) {
+    const o = ctx.createOscillator(); o.setPeriodicWave(organWave); o.frequency.value = mtof(n);
+    const o2 = ctx.createOscillator(); o2.setPeriodicWave(organWave); o2.frequency.value = mtof(n); o2.detune.value = 4; // gentle chorus
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(peak, t + attack); g.gain.setValueAtTime(peak, t + dur - 0.3); g.gain.linearRampToValueAtTime(0.0001, t + dur + 1.8);
+    o.connect(g); o2.connect(g); g.connect(out || master); g.connect(verb);
+    o.start(t); o2.start(t); o.stop(t + dur + 2); o2.stop(t + dur + 2);
+  }
+  function pedal(n, t, dur) {
+    [n, n + 12].forEach((m, i) => {
+      const o = ctx.createOscillator(); o.setPeriodicWave(pedalWave); o.frequency.value = mtof(m);
+      const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t);
+      g.gain.linearRampToValueAtTime(i ? 0.05 : 0.14, t + 2.5); g.gain.setValueAtTime(i ? 0.05 : 0.14, t + dur - 0.5); g.gain.linearRampToValueAtTime(0.0001, t + dur + 1.5);
+      o.connect(g); g.connect(master); g.connect(verb); o.start(t); o.stop(t + dur + 2);
     });
   }
-
-  function bass(n, t) {
-    const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = mtof(n - 12);
-    const g = ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.09, t + 0.8); g.gain.exponentialRampToValueAtTime(0.001, t + BAR);
-    o.connect(g); g.connect(master); o.start(t); o.stop(t + BAR + 0.2);
+  function tick(t, accent) {
+    const len = 0.03, b = ctx.createBuffer(1, ctx.sampleRate * len, ctx.sampleRate), d = b.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 6);
+    const s = ctx.createBufferSource(); s.buffer = b;
+    const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = accent ? 1500 : 2300; f.Q.value = 6;
+    const g = ctx.createGain(); g.gain.value = accent ? 0.22 : 0.13;
+    s.connect(f); f.connect(g); g.connect(master); g.connect(verb); s.start(t);
   }
 
-  function chime(n, t) {
-    const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = mtof(n);
-    const o2 = ctx.createOscillator(); o2.type = 'sine'; o2.frequency.value = mtof(n) * 2.01;
-    const g = ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.05, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0008, t + 2.6);
-    const g2 = ctx.createGain(); g2.gain.value = 0.25;
-    o.connect(g); o2.connect(g2); g2.connect(g); g.connect(master); g.connect(delay); g.connect(verb);
-    o.start(t); o2.start(t); o.stop(t + 2.8); o2.stop(t + 2.8);
-  }
-
+  // phrase = 4 chords (64 beats). The arpeggio enters on the 2nd pass and swells across the phrase.
   function schedule() {
-    const t = ctx.currentTime + 0.15, c = step % CHORDS.length;
-    pad(CHORDS[c], t); bass(BASS[c], t);
-    // a few gentle music-box notes per bar, never on every beat
-    for (let k = 0; k < 4; k++) if (Math.random() < 0.55) chime(SCALE[(Math.random() * SCALE.length) | 0], t + 0.6 + k * (BAR / 4) + Math.random() * 0.4);
-    step++;
+    while (nextBeat < ctx.currentTime + 0.4) {
+      const inChord = beat % CHORD_BEATS, ci = Math.floor(beat / CHORD_BEATS) % CHORDS.length, ch = CHORDS[ci];
+      const phrase = Math.floor(beat / (CHORD_BEATS * CHORDS.length));
+      const dur = CHORD_BEATS * BEAT;
+      if (inChord === 0) {
+        pedal(ch.bass, nextBeat, dur);
+        ch.notes.forEach((n, i) => organ(n, nextBeat + i * 0.08, dur, 0.022, 3.5));
+        if (phrase % 2 === 1) organ(ch.notes[3] + 12, nextBeat + BEAT * 4, dur - BEAT * 4, 0.009, 5); // high descant on alternate passes
+      }
+      tick(nextBeat, inChord % 4 === 0);
+      if (phrase > 0 || beat >= CHORD_BEATS) {
+        const swell = 0.35 + 0.65 * Math.sin(Math.PI * ((beat % (CHORD_BEATS * CHORDS.length)) / (CHORD_BEATS * CHORDS.length)));
+        for (let k = 0; k < 2; k++) {                     // two arpeggio notes per beat
+          const step = (inChord * 2 + k) % ch.arp.length;
+          organ(ch.arp[step], nextBeat + k * BEAT / 2, BEAT / 2 * 0.9, 0.014 * swell, 0.03);
+        }
+      }
+      nextBeat += BEAT; beat++;
+    }
   }
 
   function start() {
     if (!ctx) build();
     ctx.resume();
-    running = true; schedule();
-    timer = setInterval(schedule, BAR * 1000);
+    running = true; beat = 0;
+    nextBeat = ctx.currentTime + 0.1;
+    schedule(); timer = setInterval(schedule, 100);
     master.gain.cancelScheduledValues(ctx.currentTime);
-    master.gain.setTargetAtTime(VOL, ctx.currentTime, 1.5);
+    master.gain.setTargetAtTime(VOL, ctx.currentTime, 2.5);
     btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Turn sound off'); btn.classList.add('on');
   }
   function stop() {
     running = false; clearInterval(timer);
-    if (ctx) master.gain.setTargetAtTime(0, ctx.currentTime, 0.4);
+    if (ctx) master.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
     btn.setAttribute('aria-pressed', 'false'); btn.setAttribute('aria-label', 'Turn sound on'); btn.classList.remove('on');
-    setTimeout(() => { if (!running && ctx) ctx.suspend(); }, 1500);
+    setTimeout(() => { if (!running && ctx) ctx.suspend(); }, 2000);
   }
   btn.addEventListener('click', () => {
     running ? stop() : start();
     try { localStorage.setItem('pv-sound', running ? 'on' : 'off'); } catch (e) { }
   });
-  // pause when the tab is hidden
-  document.addEventListener('visibilitychange', () => { if (!ctx) return; if (document.hidden) ctx.suspend(); else if (running) ctx.resume(); });
-  // remember a previous "on": resume on the visitor's first interaction (browsers require a gesture)
+  document.addEventListener('visibilitychange', () => {
+    if (!ctx) return;
+    if (document.hidden) { ctx.suspend(); clearInterval(timer); }
+    else if (running) ctx.resume().then(() => { nextBeat = Math.max(nextBeat, ctx.currentTime + 0.1); clearInterval(timer); timer = setInterval(schedule, 100); });
+  });
   let pref = null; try { pref = localStorage.getItem('pv-sound'); } catch (e) { }
   if (pref === 'on') {
     const kick = () => { if (!running) start(); removeEventListener('pointerdown', kick); removeEventListener('keydown', kick); };
