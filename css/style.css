@@ -866,3 +866,5 @@ button.ev-media{display:block;cursor:zoom-in}
 .socials a.soc[style*="#F0F6FC"]:hover svg path,.socials a.soc[style*="#F0F6FC"]:focus-visible svg path{fill:#0d1117}
 @media (max-width:860px){.socials{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:380px){.socials{grid-template-columns:1fr}}
+.proj-media img.contain{object-fit:contain;background:#fff}
+.proj-media.play-corner .play{left:auto;top:auto;right:16px;bottom:16px;margin:0}
