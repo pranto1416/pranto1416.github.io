@@ -829,3 +829,22 @@ button.ev-media{display:block;cursor:zoom-in}
 /* unused merged-view switch */
 .mode{display:none!important}
 .media img.yt-max{transform:none}.case:hover .case-hero img.yt-max{transform:scale(1.04)}
+.case-thumbs-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+/* Goru Dour poster (no still yet) */
+.goru-poster{display:grid;place-items:center;text-align:left;background:radial-gradient(120% 90% at 78% 18%,rgba(255,110,90,.55),transparent 55%),radial-gradient(90% 80% at 12% 95%,rgba(34,190,190,.35),transparent 60%),linear-gradient(160deg,#170a0c,#06121a);overflow:hidden}
+.goru-poster::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 4px);pointer-events:none}
+.goru-poster .gp-inner{position:absolute;left:clamp(18px,4vw,40px);right:clamp(18px,4vw,40px);bottom:clamp(18px,4vw,36px);display:grid;gap:10px;z-index:2}
+.goru-poster .gp-k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#ffb3a3}
+.goru-poster .gp-t{font-size:clamp(40px,6vw,84px);line-height:.9;text-transform:uppercase;color:#f6f1ea;-webkit-text-stroke:1.5px #000;text-shadow:4px 4px 0 #000}
+.goru-poster .gp-stats{display:flex;gap:clamp(14px,3vw,34px);flex-wrap:wrap}
+.goru-poster .gp-stats b{display:block;font-size:clamp(20px,2.6vw,32px);color:#ff7a5c;text-shadow:2px 2px 0 #000}
+.goru-poster .gp-stats i{font-style:normal;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cfc8bf}
+.goru-poster .play{left:auto;top:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px);margin:0}
+.goru-hero{background:#cb2d67}
+.goru-hero img{position:absolute;inset:0 auto 0 12%;width:auto!important;height:100%!important;object-fit:contain!important;filter:drop-shadow(0 10px 30px rgba(0,0,0,.35))}
+.case:hover .goru-hero img{transform:scale(1.03)}
+.goru-hero .gp-inner{position:absolute;left:52%;right:clamp(14px,3vw,30px);bottom:clamp(16px,3vw,30px);display:grid;gap:12px;z-index:2}
+.goru-hero .gp-k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#ffe3ec}
+.goru-hero .gp-stats{display:grid;gap:10px}
+.goru-hero .gp-stats b{display:block;font-size:clamp(22px,3vw,38px);line-height:1;color:#fff;text-shadow:3px 3px 0 #000;-webkit-text-stroke:1px #000}
+.goru-hero .gp-stats i{font-style:normal;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#ffe3ec}

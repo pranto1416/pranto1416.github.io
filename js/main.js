@@ -131,6 +131,22 @@
       else openModal(`<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1" title="Video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`);
       return;
     }
+    const fb = e.target.closest('[data-fb]');
+    if (fb) {
+      e.preventDefault();
+      const u = fb.dataset.fb;
+      if (window.__NO_EMBED) openModal(`<div class="vid vid-link"><a class="btn btn-solid" href="${u}" target="_blank" rel="noopener">Watch on Facebook ↗</a><p class="mono">Preview mode · videos play inline on the live site</p></div>`);
+      else openModal(`<div class="vid"><iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(u)}&show_text=false&autoplay=true" title="Video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div><p class="mono" style="text-align:center;margin-top:10px"><a class="link" href="${u}" target="_blank" rel="noopener">Open on Facebook ↗</a></p>`);
+      return;
+    }
+    const dv = e.target.closest('[data-drive]');
+    if (dv) {
+      e.preventDefault();
+      const id = dv.dataset.drive;
+      if (window.__NO_EMBED) openModal(`<div class="vid vid-link"><a class="btn btn-solid" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Watch on Google Drive ↗</a><p class="mono">Preview mode · videos play inline on the live site</p></div>`);
+      else openModal(`<div class="vid"><iframe src="https://drive.google.com/file/d/${id}/preview" title="Video player" allow="autoplay; fullscreen" allowfullscreen></iframe></div>`);
+      return;
+    }
     const im = e.target.closest('[data-img]');
     if (im && !im.querySelector('img.missing')) { e.preventDefault(); openModal(`<img referrerpolicy="no-referrer" src="${im.dataset.img}" alt="Photograph by Pranto">`); }
   });
