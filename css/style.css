@@ -848,3 +848,10 @@ button.ev-media{display:block;cursor:zoom-in}
 .goru-hero .gp-stats{display:grid;gap:10px}
 .goru-hero .gp-stats b{display:block;font-size:clamp(22px,3vw,38px);line-height:1;color:#fff;text-shadow:3px 3px 0 #000;-webkit-text-stroke:1px #000}
 .goru-hero .gp-stats i{font-style:normal;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#ffe3ec}
+/* brand-colored social pills */
+.socials a.soc{gap:10px;padding:0 18px 0 14px;color:#f3efe8;border-color:color-mix(in srgb,var(--brand) 55%,transparent);background:color-mix(in srgb,var(--brand) 14%,rgba(3,18,22,.6));box-shadow:0 0 0 0 transparent}
+.socials a.soc svg{width:18px;height:18px;flex:none;color:var(--brand);transition:color .3s,transform .3s}
+.socials a.soc:hover,.socials a.soc:focus-visible{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 8px 24px -8px var(--brand);transform:translateY(-2px);outline:none}
+.socials a.soc:hover svg,.socials a.soc:focus-visible svg{color:#fff;transform:scale(1.08)}
+.socials a.soc[style*="#F0F6FC"]:hover,.socials a.soc[style*="#F0F6FC"]:focus-visible{color:#0d1117}
+.socials a.soc[style*="#F0F6FC"]:hover svg,.socials a.soc[style*="#F0F6FC"]:focus-visible svg{color:#0d1117}
