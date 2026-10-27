@@ -75,6 +75,6 @@ window.PV_DATA = (function () {
       "assets/photos/photo-18.jpg",
       "assets/photos/photo-19.jpg"
     ],
-    skills: ['Unity', 'Unreal Engine 5', 'Blender', 'C#', 'C++', 'Blueprints', 'HLSL Shaders', 'Three.js', 'Lighting & Post', 'Level Design', 'Environment Art', 'Technical Art', 'XR / AR', 'Python', 'Figma', 'Photoshop', 'JIRA', 'Story Writing', 'Voice Direction', 'Team Leadership']
+    skills: ['Unity', 'Unreal Engine 5', 'Blender', 'C#', 'C++', 'Blueprints', 'HLSL Shaders', 'Three.js', 'Lighting & Post-Processing', 'Level Design', 'Environment Art', 'Technical Art', 'XR / AR', 'Python', 'Figma', 'Photoshop', 'JIRA', 'Story Writing', 'Voice Direction', 'Team Leadership']
   };
 })();
